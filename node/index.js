@@ -1,9 +1,11 @@
 const http = require("http");
 const fs = require("fs");
 
-const PORT = 3333;
+require('dotenv').config();
 
-const folder = "./files";
+const PORT = process.env.PORT || 3333;
+
+const folder = process.argv[2];
 
 const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
@@ -11,7 +13,7 @@ const server = http.createServer((req, res) => {
         if (err) {
             console.log(err);
         } else {
-            files.foreach(f => res.write(`${f}\n`));
+            files.forEach(file => res.write(`${file}\n`));
             res.end("Instituto de Computação");
         }
     });
