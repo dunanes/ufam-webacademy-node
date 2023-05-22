@@ -1,9 +1,9 @@
-function createLink(filename) {
+export function createLink(filename) {
     return `<a href="/${filename}">${filename}</a><br>\n`;
 }
 
-function createVolta() {
+export function createVolta() {
     return `<a href="/">Voltar</a><br>\n`;
 }
 
-export default { createLink, createVolta }
+// export default { createLink, createVolta }

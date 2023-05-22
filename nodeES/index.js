@@ -1,8 +1,9 @@
 import http from "http"
 import fs from "fs"
-import { createLink, createVolta } from "./helpers/utils"
+import { createLink, createVolta } from "./helpers/utils.js"
 
-require('dotenv').config();
+import * as dotenv from "dotenv"
+dotenv.config();
 
 const PORT = process.env.PORT || 3333;
 
@@ -10,6 +11,7 @@ const folder = process.argv[2];
 
 const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    console.log(req.url);
     if (req.url === "/") {
         fs.readdir(folder, (err, files) => {
             if (err) {
