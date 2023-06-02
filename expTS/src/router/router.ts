@@ -1,41 +1,15 @@
 import { Router } from "express";
+import mainController from "../controllers/main";
 
 const router = Router();
 
-//TODO Falta separar as rotas dos controles
+// Main controller
+router.get("/", mainController.principal);
+router.get("/sobre", mainController.sobre);
+router.get("/hb1", mainController.hb1);
+router.get("/hb2", mainController.hb2);
+router.get("/hb3", mainController.hb3);
 
-router.get("/", (req, res) => {
-    res.send("Página principal do site");
-});
-
-router.get("/sobre", (req, res) => {
-    res.send("Página sobre");
-});
-
-router.get("/hb1", (req, res) => {
-    res.render("hb1", {
-        mensagem: "E aí",
-        layout: false,
-    });
-});
-
-router.get("/hb2", (req, res) => {
-    res.render("hb2", {
-        poweredByNodejs: true,
-        name: "Express",
-        type: "Framework",
-        layout: false,
-    });
-});
-
-router.get("/hb3", (req, res) => {
-    const professores = [
-        { nome: "Ana", sala: 1000 },
-        { nome: "Bruno", sala: 1001 },
-        { nome: "Carla", sala: 1002 },
-        { nome: "Davi", sala: 1003 },
-    ];
-    res.render("hb3", { professores, layout: false });
-});
+// Poderiam haver outros controllers aqui no router
 
 export default router;
