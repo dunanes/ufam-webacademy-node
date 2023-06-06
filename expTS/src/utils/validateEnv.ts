@@ -4,6 +4,7 @@ function validateEnv() {
     cleanEnv(process.env, {
         PORT: port(),
         NODE_ENV: str(),
+        LOG_FILE: str(),
     });
 }
 
