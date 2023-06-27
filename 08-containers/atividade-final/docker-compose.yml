@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  database:
+    container_name: livros-database
+    image: dunanes-livros-database
+    build: ./database
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass2023
+      - MYSQL_DATABASE=livros
+    volumes:
+      - dunanes-vol-livros:/var/lib/mysql
+    networks:
+      - rede_livros
+
+  backend:
+    container_name: livros-backend
+    image: dunanes-livros-backend
+    build: ./backend
+    ports: 
+      - 4444:4444
+    volumes:
+      - dunanes-vol-backend:/logs
+    networks:
+      - rede_livros
+    depends_on:
+      - database
+    restart: on-failure
+
+  frontend:
+    container_name: livros-frontend
+    image: dunanes-livros-frontend
+    build: ./frontend
+    ports:
+      - 8000:80
+    networks:
+      - rede_livros
+    depends_on:
+      - backend
+
+  phpmyadmin:
+    container_name: livros-phpmyadmin
+    image: phpmyadmin:latest
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=livros-database
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=pass2023
+    depends_on:
+      - database
+    networks:
+      - rede_livros
+
+networks:
+  rede_livros:
+    driver: bridge
+
+volumes:
+  dunanes-vol-livros:
+  dunanes-vol-backend:
